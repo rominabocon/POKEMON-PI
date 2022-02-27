@@ -35,8 +35,16 @@ module.exports = (sequelize) => {
     picture: {
       type: DataTypes.STRING,
     },
-
-
+    dataBaseT: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
+  },
+  {
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false
   });
 
 };
