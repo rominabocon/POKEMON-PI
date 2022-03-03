@@ -7,7 +7,6 @@ const types = require('./types')
 const router = Router();
 
 router.use('/pokemons', pokemons)
-router.use('/pokemons/:name', pokemons)
 router.use('/types', types)
 
 // Configurar los routers
