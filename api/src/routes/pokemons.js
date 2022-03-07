@@ -127,7 +127,8 @@ router.get('/:id', async(req, res, next) => {
 router.post('/', async(req, res)=> {
    const {name, hp, attack, defense, speed, height, weight, img, isInDataBase, types} = req.body
     
-  try{ let newPokemon = await Pokemon.create ({
+  try{ 
+      let newPokemon = await Pokemon.create ({
         name, 
         hp, 
         attack,
