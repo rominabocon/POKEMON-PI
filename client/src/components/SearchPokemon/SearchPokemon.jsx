@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { catchPokemonByName } from '../../actions'
+import './SearchingPokemon.css'
 
 function SearchPokemon() {
     const dispatch = useDispatch()
@@ -19,8 +20,8 @@ function SearchPokemon() {
 
 return (
     <div> 
-        <input type="text" value={name} onChange={(e) => handleChange(e)} placeholder='Search your pokemon'></input>
-        <button type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
+        <input className='searchInput' type="text" value={name} onChange={(e) => handleChange(e)} placeholder='Search your pokemon'></input>
+        <button className='searchingpokeB' type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
     </div>
 )
 }

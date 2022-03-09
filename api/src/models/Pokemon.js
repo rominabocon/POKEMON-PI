@@ -40,7 +40,7 @@ module.exports = (sequelize) => {
     img: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: './superball.png'
+   
     },
     isInDataBase: {
       type: DataTypes.BOOLEAN,

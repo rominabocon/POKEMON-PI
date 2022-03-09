@@ -7,7 +7,7 @@ function LandingPage() {
     <div className='container'>
     <div  className='backgroundImage'>
       <div>
-        <Link to='/pokemons'> <button> CATCH THEM ALL!</button> </Link>
+        <Link to='/pokemons'> <button className='buttonLanding'> CATCH THEM ALL!</button> </Link>
       </div>
     </div>
     </div>

@@ -1,0 +1,23 @@
+.searchingpokeB {
+
+        background-color: #D5A100; 
+        border: none;
+        color: #0A285F;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        border-radius: 10%;
+}
+
+.searchingpokeB:hover {
+    background-color: #008CBA;
+    color: #FFCC00;
+}
+
+.searchInput {
+padding: 8px 18px;
+}

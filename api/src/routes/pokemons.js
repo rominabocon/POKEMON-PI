@@ -5,7 +5,6 @@ const {Pokemon, Type} = require("../db")
 
 
 
-
 async function getApi (value) { //llamo a la api y recolecto toda la informacion.
     const apiLink = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
     const pokemonData = {
@@ -23,8 +22,6 @@ async function getApi (value) { //llamo a la api y recolecto toda la informacion
     
     return pokemonData // retorno la info recolectada de la api
 }
-
-
 
 router.get("/", async (req, res) =>{
     const {name} = req.query // llamo por query al dato que busco
@@ -128,7 +125,16 @@ router.post('/', async(req, res)=> {
    const {name, hp, attack, defense, speed, height, weight, img, isInDataBase, types} = req.body
     
   try{ 
-      let newPokemon = await Pokemon.create ({
+    
+    let existinPokemonDB = await Pokemon.findOne({
+        where:{
+            name : name.toLowerCase(),
+        }
+    });
+    
+    if(existinPokemonDB) return res.json({msg: 'Pokemon existente'});
+
+    let newPokemon = await Pokemon.create ({
         name, 
         hp, 
         attack,
@@ -151,7 +157,7 @@ router.post('/', async(req, res)=> {
    
     res.send('You did it! You create a whole new Pokemon!')
     }catch (error) {
-        res.status(404).send("We haven't catch them all" + error)
+        res.status(404).send("We haven't catch them all " + error)
     }
 })
 

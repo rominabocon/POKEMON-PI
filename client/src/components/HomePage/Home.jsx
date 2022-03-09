@@ -6,6 +6,7 @@ import { catchAllPokemon, catchPokemonByOrigin, catchPokemonByType, getAllTypes,
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination'
 import SearchPokemon from '../SearchPokemon/SearchPokemon'
+import './Home.css'
 
 
 
@@ -62,12 +63,14 @@ function sortingbyOrigin(e) {
   setPagination(1)
   setOrder(`Sort ${e.target.value}`)
 }
-console.log(catchPokemon)
+
   return (
       <div className='homePage'> 
-
-      <Link to='/createPokemon'>Create your Own Pokemon</Link>
+      <div className='navBar'>
+      <Link to='/createPokemon' className='seachingButton'>Create your Own Pokemon</Link>
       <SearchPokemon/>
+      </div>
+      <div className='selectors'>
       <select onChange={e => sortingbyName(e)}>
                 <option value="all">Sort by Name</option>
                 <option value="sortAZ">A-Z</option>
@@ -95,12 +98,13 @@ console.log(catchPokemon)
       </select>
 
       <button onClick={getThemAll}>Catch All Pokemon!</button>
-
+      </div>     
       <Pagination 
         pages={pages}
         catchPokemon={catchPokemon.length}
         pokePagination={pokePagination}
       />
+      <div className='cardContainer'>
       {
         currentPokemonCard?.map((p)=>{
           return(
@@ -117,6 +121,7 @@ console.log(catchPokemon)
         }
         )
       }
+      </div>
       </div>
   )
 }

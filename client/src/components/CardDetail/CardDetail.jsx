@@ -5,9 +5,12 @@ function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, 
 
 
   return (
-    <div key={id}>
+    <div className='cardDetail' key={id}>
+        <div className='mainInformation'>
         <h1>{name}</h1>
-        <img src={img} alt={id}/>
+        <img className='imgDetail' src={img} alt={id}/>
+        </div>
+        <div className='dataInfo'>
         <p>HP: {hp}</p>
         <p>Identification: {id}</p>
         <p>Attack: {attack}</p>
@@ -15,10 +18,11 @@ function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, 
         <p>Speed: {speed}</p>
         <p>Weight: {weight}</p>
         <p>Height: {height}</p>
-        
+
        <div>
          <p>Types: {types?.map(t => t).join(", ")}</p>
-      </div>
+        </div>
+        </div>
         
 
     </div>

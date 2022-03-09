@@ -1,13 +1,26 @@
-
+.pagination {
+    display: inline-block;
+}
 
 .pagination ul {
     list-style: none;
-    display: flex;
-    justify-content: center;
-    
-}   
+  }
 
-.pagination ul li {
-    margin: 10px;
-    text-decoration: underline;
-}   
+.pagination li {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
+
+    .pagination li.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    }
+
+  .pagination li:hover:not(.active) {
+    background-color: #FB1B1B;
+    border-radius: 5px;
+  }

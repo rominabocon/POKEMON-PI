@@ -10,19 +10,18 @@ function Pagination({pages, catchPokemon, pokePagination}) {
     for(let i=1; i <= Math.ceil(catchPokemon/pages); i++){
         pageNumber.push(i)
     }
-    console.log(catchPokemon)
-    console.log(pages)
-    console.log(pageNumber)
+
   return (
 
     <div className='pagination'>
         <ul>
             {
-
+                
                 pageNumber?.map(n => {
                     return <li key={n} onClick={() => pokePagination(n)}> {n}  </li>
                 })
             }
+
         </ul>
     </div>
   )

@@ -1,16 +1,58 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createPokemon, getAllTypes } from '../../actions';
+import './CreatePokemon.css'
+
 
 function CreatePokemon() {
+    const [errors, setErrors] = useState({})
     const dispatch = useDispatch();
     const getPokeTypes = useSelector((state) => state.types)
-   
+    const pokeState = useSelector((state) => state.pokemons)
+
+    const validation = (input) => {
+        
+        let errors = {};
+        
+        if (!input.name) {
+            errors.name = "This field is mandatory";
+        }
+        if(input.name.includes(typeof 'number')){
+            errors.name = 'This pokemons alredy exist';
+        }
+        if (input.hp < 1) {
+            errors.hp = 'Your pokemons hp must be higher than 1'
+        }
+        if (input.attack < 1) {
+            errors.attack = 'too weak!'
+        }
+        if (input.defense < 1 ) {
+            errors.defense = 'Your pokemon need more defense. Make him stronger!'
+        }
+        if (input.speed < 1) {
+            errors.speed = 'More speed please. Must be higher than 1'
+        }
+    
+        if (input.weight < 1 ) {
+            errors.weight = 'Too skinny. Needs more weight than 1'
+        }
+        
+        if (input.height < 1) {
+            errors.height = 'Too short, must be higher than 1'
+        }
+    
+        return errors
+    };
+
+
+
     useEffect(() => {
         dispatch(getAllTypes())
     },[dispatch])
     
+
+
     const [ input, setInput ] = useState({
         name: '',
         hp: '',
@@ -21,19 +63,35 @@ function CreatePokemon() {
         weight: '',
         isInDataBase: true,
         types: [],
-        img:''
+        img:'https://cdn.pixabay.com/photo/2019/11/18/15/46/pokemon-4635112_640.png'
     });
 
+    useEffect(() => {
+        setErrors(validation(input))
+    }, [input])
+
+    
     const handleChange = (e) => {
+       
         setInput({
             ...input,
-            [e.target.name]: e.target.value.toLowerCase()
-        });
+            [e.target.name]: e.target.value,
+          });
+          setErrors(validation({
+            ...input,
+            [e.target.name]: e.target.value,
+          }))
     };
 
     function handleSubmit(e){
         e.preventDefault()
-        alert('You did it! ')
+        if(pokeState.find((p) => p.name === input.name)) {
+            alert('Ya existe!');
+            setErrors({
+                ...input,
+                [e.target.name]: "Pokémon duplicated",
+            });
+        } else{
         dispatch(createPokemon(input)) 
         setInput({
             name: '',
@@ -47,6 +105,8 @@ function CreatePokemon() {
             types: [],
             img:''
         })
+        alert('You Did It!')
+}
     }
     const handleSelect = (e) => {
         setInput({
@@ -54,26 +114,32 @@ function CreatePokemon() {
             types: [...input.types, e.target.value]
         });
     };
-    
-    console.log(input)
+    const errorscontrol = useMemo(() => {
+        if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height) return true;
+        return false;
+      },[errors])
 
-  return (
-    <div>
+console.log(errors)
+    return (
+        <div>
 
         <Link to='/pokemons'>Go Back</Link>
 
         <form onSubmit={e => handleSubmit(e)}>
-        
-            <label>Name: </label>
-                <input
-                    type='text'
-                    value={input.name}
-                    name="name"
-                    placeholder='Set Name'
-                    onChange={e => handleChange(e)}
-                    required={true}
-                    autoComplete="off"
-                    />
+            <div>
+                <label>Name: </label>
+                    <input
+                        type='text'
+                        value={input.name.toLowerCase()}
+                        name="name"
+                        placeholder='Set Name'
+                        onChange={e => handleChange(e)}
+                        required={true}
+                        autoComplete="off"
+                        />
+                    {errors.name && (<p className='error'>{errors.name}</p>)}
+            </div>
+            <div>
             <label>HP</label>
                 <input
                     type='number'
@@ -83,6 +149,9 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                 />
+            {errors.hp && (<p className='error'>{errors.hp}</p>)}
+            </div>
+            <div>
             <label>Attack</label>
                 <input
                     type='number'
@@ -92,7 +161,11 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                 />
+            {errors.attack && (<p className='error'>{errors.attack}</p>)}
+            </div>
+            <div>
             <label>Defense</label>
+           
                 <input
                     type='number'
                     value={input.defense}
@@ -101,6 +174,9 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                 />
+                {errors.defense && (<p className='error'>{errors.defense}</p>)}
+            </div>
+            <div>
             <label>Speed</label>
                 <input
                     type='number'
@@ -110,7 +186,11 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                     />
+                {errors.speed && (<p className='error'>{errors.speed}</p>)}
+            </div>
+            <div>
             <label>Height</label>
+            
                 <input
                     type='number'
                     value={input.height}
@@ -119,7 +199,11 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                 />
+                {errors.height && (<p className='error'>{errors.height}</p>)}
+            </div>
+            <div>
             <label>Weight</label>
+            
                 <input
                     type='number'
                     value={input.weight}
@@ -128,9 +212,8 @@ function CreatePokemon() {
                     onChange={e => handleChange(e)}
                     required={true}
                 />
-
-        {/* <select  onChange={e => handleSelect(e)}>
-        <option value='all'>Pokemon Types</option> */}
+                {errors.weight && (<p className='error'>{errors.weight}</p>)}
+                </div>
         {getPokeTypes?.map((t) => {
             return (
                 <>
@@ -139,9 +222,9 @@ function CreatePokemon() {
                 </>
             )})
         }
-        {/* </select> */}
+
         <div>
-         <button type="submit">Create your own pokemon</button>
+        <button type="submit" disabled={errorscontrol}>Create your own pokemon</button>
           </div>
         </form>
     </div>

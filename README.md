@@ -83,10 +83,10 @@ A continuación se detallaran los requerimientos mínimos para la aprobación de
 
 #### Tecnologías necesarias:
 
-- [ ] React
-- [ ] Redux
-- [ ] Express
-- [ ] Sequelize - Postgres
+- [x] React
+- [x] Redux
+- [x] Express
+- [x] Sequelize - Postgres
 
 #### Frontend
 

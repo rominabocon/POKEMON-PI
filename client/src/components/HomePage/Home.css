@@ -1,0 +1,13 @@
+.cardContainer {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navBar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
