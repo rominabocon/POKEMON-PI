@@ -8,7 +8,7 @@ function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, 
   return (
     <div className={style.card} key={id}>
         <div className={style.mainInformation}>
-          <h1 style={{"text-transform": "uppercase"}}>{name}</h1>
+          <h1 style={{"textTransform": "uppercase"}}>{name}</h1>
           <img className={style.imgDetail} src={img} alt={id}/>
         </div>
         <div className={style.container}>

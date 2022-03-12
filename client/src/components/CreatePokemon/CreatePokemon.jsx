@@ -131,6 +131,7 @@ function CreatePokemon() {
             <div className={style.typeE}>
                 <label>Name: </label>
                     <input
+                        
                         type='text'
                         value={input.name.toLowerCase()}
                         name="name"
@@ -143,8 +144,9 @@ function CreatePokemon() {
                     {errors.name && (<p className={style.error}>{errors.name}</p>)}
             </div>
             <div className={style.typeE}>
-            <label>HP</label>
+            <label>HP: </label>
                 <input
+                    
                     type='number'
                     value={input.hp}
                     name="hp"
@@ -158,6 +160,7 @@ function CreatePokemon() {
             <div className={style.typeE}>
             <label>Attack</label>
                 <input
+                    
                     type='number'
                     value={input.attack}
                     name="attack"
@@ -172,6 +175,7 @@ function CreatePokemon() {
             <label>Defense</label>
            
                 <input
+                    
                     type='number'
                     value={input.defense}
                     name="defense"
@@ -185,6 +189,7 @@ function CreatePokemon() {
             <div className={style.typeE}>
             <label>Speed</label>
                 <input
+                    
                     type='number'
                     value={input.speed}
                     name="speed"
@@ -199,6 +204,7 @@ function CreatePokemon() {
             <label>Height</label>
             
                 <input
+                    
                     type='number'
                     value={input.height}
                     name="height"
@@ -213,6 +219,7 @@ function CreatePokemon() {
             <label>Weight</label>
             
                 <input
+                    
                     type='number'
                     value={input.weight}
                     name="weight"
@@ -226,8 +233,8 @@ function CreatePokemon() {
                 <div className={style.checkBox}>
         {getPokeTypes?.map((t) => {
             return (
-                <div className={style.check}>
-                <input onChange={(e) => handleSelect(e)} type="checkbox" value={t.name} />
+                <div key={t.name} className={style.check}>
+                <input  onChange={(e) => handleSelect(e)} type="checkbox" value={t.name} />
                 <label>{t.name}</label>
                 </div>
             )})

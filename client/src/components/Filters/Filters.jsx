@@ -19,6 +19,7 @@ function sortingbyName(e){
 }
 
 function filterbyType(e){
+  e.preventDefault()
   dispatch(catchPokemonByType(e.target.value))
   setPagination(1)
   setOrder(`Sort ${e.target.value}`)
@@ -32,6 +33,7 @@ function sortingbyAttack(e){
 }
 
 function sortingbyOrigin(e) {
+  e.preventDefault()
   dispatch(catchPokemonByOrigin(e.target.value))
   setPagination(1)
   setOrder(`Sort ${e.target.value}`)

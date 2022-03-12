@@ -14,7 +14,6 @@ function Home() {
   const [pages] = useState(12)
   const dispatch = useDispatch()
   const catchPokemon = useSelector((state) => state.pokemons)
-
   const getTypes = useSelector((state) => state.types)
   
 
@@ -34,7 +33,7 @@ function Home() {
       />
     {
     catchPokemon <= 0 
-    ?  <img className={style.loading} src={'https://img1.picmix.com/output/stamp/normal/0/9/0/4/1604090_a14a5.gif'} alt='wait for your pokemons'/>
+    ?  <img className={style.loading} src={'https://c.tenor.com/dzQAPQ7q0-4AAAAi/pikachu-shy.gif'} alt='wait for your pokemons'/>
     :  <CardContainer
           setPagination={setPagination}
           pages={pages}

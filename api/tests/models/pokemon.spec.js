@@ -18,5 +18,15 @@ describe('Pokemon model', () => {
         Pokemon.create({ name: 'Pikachu' });
       });
     });
+    describe('hp', () => {
+      it('should throw an error if hp is null', (done) => {
+        Pokemon.create({})
+          .then(() => done(new Error('It requires a valid hp')))
+          .catch(() => done());
+      });
+      it('should work when its a valid hp', () => {
+        Pokemon.create({ hp: 45 });
+      });
+    });
   });
 });

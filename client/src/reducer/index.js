@@ -13,7 +13,7 @@ function rootReducer(state=initialState, action) {
             return{
                 ...state,
                 pokemons: action.payload,
-                bringAllPokemons: action.payload
+                bringAllPokemons: action.payload,
             };
         case GET_ALL_TYPES :
             return{
@@ -63,6 +63,7 @@ function rootReducer(state=initialState, action) {
             };
         case CATCH_POKEMON_BY_ORIGIN:
             const bringOrigin = state.bringAllPokemons
+
             const sortingOrigin = action.payload === "all" ? bringOrigin : action.payload === "created" ?  bringOrigin.filter(p => p.isInDataBase) : bringOrigin.filter(p => !p.isInDataBase)
 
             return{

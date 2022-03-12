@@ -45,7 +45,7 @@ router.get("/", async (req, res) =>{
                 return res.send(checkApi) 
             } 
 
-            return res.send(dataBaseResult)
+            return res.status(200).send(dataBaseResult)
 
         } catch (error) {
             res.status(404).send("We haven't catch them all" + error) 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { pokemonDetail } from '../../actions'
 
 import CardDetail from './CardDetail'
@@ -16,15 +16,22 @@ function CardDetailContainer() {
         dispatch(pokemonDetail(id))
     }, [dispatch, id])
 
+    // const history = useHistory()
 
+    // function handleGoBack(e) {
+    //     e.preventDefault();
+    //     dispatch(pokemonDetail());
+    //     history.push('/pokemons')
+    // }
 
   return (
     <div >
         <Link className={style.buttonBack} to='/pokemons'>Go Back</Link>
         <div className={style.containerDetail}>
     <div className={style.cardDetailContainer}>
-        {
-            <CardDetail
+        { getDetail <= 0 
+        ? <img className={style.loading} src={'https://c.tenor.com/dzQAPQ7q0-4AAAAi/pikachu-shy.gif'} alt='wait for your pokemons'/>
+        : <CardDetail
                 key={getDetail.id}
                 id={getDetail.id}
                 name={getDetail.name}

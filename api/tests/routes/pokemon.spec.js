@@ -6,8 +6,14 @@ const { Pokemon, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const pokemon = {
-  name: 'Pikachu',
-};
+  name: 'Romina',
+  hp: 20,
+  defense: 20,
+  attack: 20,
+  speed: 20,
+  height: 80,
+  weight: 100,
+};    
 
 describe('Pokemon routes', () => {
   before(() => conn.authenticate()
@@ -15,7 +21,7 @@ describe('Pokemon routes', () => {
     console.error('Unable to connect to the database:', err);
   }));
   beforeEach(() => Pokemon.sync({ force: true })
-    .then(() => Pokemon.create(pokemon)));
+    .then(() =>  Pokemon.create(pokemon)));
   describe('GET /pokemons', () => {
     it('should get 200', () =>
       agent.get('/pokemons').expect(200)
