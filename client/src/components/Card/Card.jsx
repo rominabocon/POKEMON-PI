@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Card.css'
+import style from './Card.module.css'
+
 function Card({name, id, img, types}) {
 
   if(typeof types[0] !== 'string') {
@@ -10,14 +11,19 @@ function Card({name, id, img, types}) {
 
   return (
 
-    <div className='cardcomponent' key={id}>
-
-        <h3>{name.toUpperCase()}</h3>
- 
-        <Link to={`/pokemons/${id}`}><img className='pokeImg' src={img} alt={id}/></Link>
-        <p>{types.join(', ').toUpperCase()}</p>
-
-        
+    <div className={style.flipCard} key={id}>
+        <Link to={`/pokemons/${id}`}>
+        <div className={style.flipCardInner}>
+          <div className={style.flipCardFront}>
+            <img className={style.pokeImg} src={img} alt={id}/>
+          </div>
+          <div className={style.flipCardBack}>
+            <h2>{name.toUpperCase()}</h2>
+            <h4>TYPES: </h4>
+            <p>{types.join(", ").toUpperCase()}</p>
+          </div>
+        </div>
+    </Link>
     </div>
   )
 }

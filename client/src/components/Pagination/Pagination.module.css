@@ -1,5 +1,6 @@
 .pagination {
     display: inline-block;
+    margin-top: 10px;
 }
 
 .pagination ul {
@@ -9,18 +10,29 @@
 .pagination li {
     color: black;
     float: left;
-    padding: 8px 16px;
-    text-decoration: none;
+    padding: 8px 70px;
+    text-decoration: underline;
   }
 
 
     .pagination li.active {
-    background-color: #4CAF50;
+
     color: white;
     border-radius: 5px;
     }
 
   .pagination li:hover:not(.active) {
-    background-color: #FB1B1B;
+    background-color: #D5A100;
     border-radius: 5px;
   }
+
+
+  
+@media only screen and (max-width: 600px) {
+  .pagination li {
+    color: black;
+    float: left;
+    padding: 3px 10px;
+    text-decoration: underline;
+  }
+}

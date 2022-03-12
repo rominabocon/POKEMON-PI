@@ -1,5 +1,5 @@
 import React from 'react'
-import './Pagination.css'
+import style from './Pagination.module.css'
 
 function Pagination({pages, catchPokemon, pokePagination}) {
 
@@ -13,7 +13,7 @@ function Pagination({pages, catchPokemon, pokePagination}) {
 
   return (
 
-    <div className='pagination'>
+    <div className={style.pagination}>
         <ul>
             {
                 

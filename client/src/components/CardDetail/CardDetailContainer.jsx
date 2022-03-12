@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { pokemonDetail } from '../../actions'
-import NavBar from '../NavBar/NavBar'
+
 import CardDetail from './CardDetail'
-import './CardDetail.css'
+import style from './CardDetail.module.css'
+
 
 function CardDetailContainer() {
     const {id} = useParams()
@@ -18,10 +19,10 @@ function CardDetailContainer() {
 
 
   return (
-    <div>
-        <NavBar/>
-        <div className='containerDetail'>
-    <div className='cardDetailContainer'>
+    <div >
+        <Link className={style.buttonBack} to='/pokemons'>Go Back</Link>
+        <div className={style.containerDetail}>
+    <div className={style.cardDetailContainer}>
         {
             <CardDetail
                 key={getDetail.id}
@@ -39,7 +40,7 @@ function CardDetailContainer() {
             
         }
             </div>
-        <Link className='buttonBack' to='/pokemons'>Go Back</Link>
+
 
         </div>
     </div>

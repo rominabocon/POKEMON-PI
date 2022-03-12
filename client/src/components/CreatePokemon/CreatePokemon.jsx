@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createPokemon, getAllTypes } from '../../actions';
-import './CreatePokemon.css'
+import style from './CreatePokemon.module.css'
 
 
 function CreatePokemon() {
@@ -18,28 +18,25 @@ function CreatePokemon() {
         if (!input.name) {
             errors.name = "This field is mandatory";
         }
-        if(input.name.includes(typeof 'number')){
-            errors.name = 'This pokemons alredy exist';
-        }
         if (input.hp < 1) {
-            errors.hp = 'Your pokemons hp must be higher than 1'
+            errors.hp = 'Needs more than 1'
         }
         if (input.attack < 1) {
             errors.attack = 'too weak!'
         }
         if (input.defense < 1 ) {
-            errors.defense = 'Your pokemon need more defense. Make him stronger!'
+            errors.defense = 'Make him stronger!'
         }
         if (input.speed < 1) {
-            errors.speed = 'More speed please. Must be higher than 1'
+            errors.speed = 'More speed please.'
         }
     
         if (input.weight < 1 ) {
-            errors.weight = 'Too skinny. Needs more weight than 1'
+            errors.weight = 'Too skinny.'
         }
         
         if (input.height < 1) {
-            errors.height = 'Too short, must be higher than 1'
+            errors.height = 'Too short'
         }
     
         return errors
@@ -76,11 +73,11 @@ function CreatePokemon() {
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-          });
-          setErrors(validation({
+        });
+        setErrors(validation({
             ...input,
             [e.target.name]: e.target.value,
-          }))
+        }))
     };
 
     function handleSubmit(e){
@@ -114,19 +111,24 @@ function CreatePokemon() {
             types: [...input.types, e.target.value]
         });
     };
+
     const errorscontrol = useMemo(() => {
         if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height) return true;
         return false;
       },[errors])
 
-console.log(errors)
+
     return (
-        <div>
+        <div className={style.backG}>
 
-        <Link to='/pokemons'>Go Back</Link>
+        <Link className={style.buttonBack} to='/pokemons'>Go Back</Link>
+        <div className={style.displayForm}>
+        <div className={style.detailImg}>
+            <img src={'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png'} alt="charmander" />
+        </div>
 
-        <form onSubmit={e => handleSubmit(e)}>
-            <div>
+        <form  className={style.controlForm} onSubmit={e => handleSubmit(e)}>
+            <div className={style.typeE}>
                 <label>Name: </label>
                     <input
                         type='text'
@@ -136,10 +138,11 @@ console.log(errors)
                         onChange={e => handleChange(e)}
                         required={true}
                         autoComplete="off"
+                        className={style.inputSt}
                         />
-                    {errors.name && (<p className='error'>{errors.name}</p>)}
+                    {errors.name && (<p className={style.error}>{errors.name}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>HP</label>
                 <input
                     type='number'
@@ -148,10 +151,11 @@ console.log(errors)
                     placeholder='Set hit points'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                 />
-            {errors.hp && (<p className='error'>{errors.hp}</p>)}
+            {errors.hp && (<p className={style.error}>{errors.hp}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>Attack</label>
                 <input
                     type='number'
@@ -160,10 +164,11 @@ console.log(errors)
                     placeholder='Set attack'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                 />
-            {errors.attack && (<p className='error'>{errors.attack}</p>)}
+            {errors.attack && (<p className={style.error}>{errors.attack}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>Defense</label>
            
                 <input
@@ -173,10 +178,11 @@ console.log(errors)
                     placeholder='Set defense'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                 />
-                {errors.defense && (<p className='error'>{errors.defense}</p>)}
+                {errors.defense && (<p className={style.error}>{errors.defense}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>Speed</label>
                 <input
                     type='number'
@@ -185,10 +191,11 @@ console.log(errors)
                     placeholder='Set speed'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                     />
-                {errors.speed && (<p className='error'>{errors.speed}</p>)}
+                {errors.speed && (<p className={style.error}>{errors.speed}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>Height</label>
             
                 <input
@@ -198,10 +205,11 @@ console.log(errors)
                     placeholder='Set height'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                 />
-                {errors.height && (<p className='error'>{errors.height}</p>)}
+                {errors.height && (<p className={style.error}>{errors.height}</p>)}
             </div>
-            <div>
+            <div className={style.typeE}>
             <label>Weight</label>
             
                 <input
@@ -211,22 +219,25 @@ console.log(errors)
                     placeholder='Set weight'
                     onChange={e => handleChange(e)}
                     required={true}
+                    className={style.inputSt}
                 />
-                {errors.weight && (<p className='error'>{errors.weight}</p>)}
+                {errors.weight && (<p className={style.error}>{errors.weight}</p>)}
                 </div>
+                <div className={style.checkBox}>
         {getPokeTypes?.map((t) => {
             return (
-                <>
+                <div className={style.check}>
                 <input onChange={(e) => handleSelect(e)} type="checkbox" value={t.name} />
                 <label>{t.name}</label>
-                </>
+                </div>
             )})
         }
-
+        </div>
         <div>
         <button type="submit" disabled={errorscontrol}>Create your own pokemon</button>
           </div>
         </form>
+        </div>
     </div>
   )
 }

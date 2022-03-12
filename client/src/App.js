@@ -4,6 +4,7 @@ import Home from './components/HomePage/Home';
 import LandingPage from './components/LandingPage/LandingPage';
 import CardDetailContainer from './components/CardDetail/CardDetailContainer';
 import CreatePokemon from './components/CreatePokemon/CreatePokemon';
+import './normalize.css';
 
 function App() {
   return (

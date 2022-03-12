@@ -1,0 +1,97 @@
+
+.error {
+    font-size: smaller;
+    color: red !important;
+    padding-left: 10px;
+    display: none;
+}
+
+.inputSt:hover + .error {
+    display: block;
+    color: red;
+  }
+.typeE {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.typeE label {
+    padding-right: 15px ;
+}
+.controlForm {
+  width: 50%;
+
+}
+
+.inputSt {
+    width: 35%;
+    padding: 6px 8px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+input[type=number] { -moz-appearance:textfield; }
+
+
+.checkBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 75%;
+    margin: auto;
+}
+.check {
+    padding: 10px;
+}
+
+.buttonBack {
+    background-color: #FFCC00;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    border-radius: 20%;
+  }
+
+  .buttonBack:hover {
+    background-color: #008CBA;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  .displayForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+@media only screen and (max-width: 600px) {
+ .detailImg {
+     display: none;
+ }   
+ .controlForm {
+     margin-top: 15px;
+     width: 100%;
+ }
+}

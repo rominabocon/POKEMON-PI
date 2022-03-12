@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { catchPokemonByName } from '../../actions'
-import './SearchingPokemon.css'
+import style from './SearchingPokemon.module.css'
 
 function SearchPokemon() {
     const dispatch = useDispatch()
@@ -19,9 +20,14 @@ function SearchPokemon() {
     }
 
 return (
-    <div> 
-        <input className='searchInput' type="text" value={name} onChange={(e) => handleChange(e)} placeholder='Search your pokemon'></input>
-        <button className='searchingpokeB' type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
+    <div className={style.navDistribution}> 
+        <div>
+            <Link to='/createPokemon' className={style.searchingpokeB}>Create your Own Pokemon</Link>
+        </div>
+        <div>
+            <input className={style.searchInput} type="text" value={name} onChange={(e) => handleChange(e)} placeholder='🔎Search your pokemon'></input>
+            <button className={style.searchingpokeB} disabled={!name} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
+        </div>
     </div>
 )
 }
