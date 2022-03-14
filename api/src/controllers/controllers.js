@@ -2,7 +2,7 @@ const axios = require("axios")
 const {Pokemon, Type} = require("../db.js")
 
 
-async function getApi (value) { //llamo a la api y recolecto toda la informacion.
+async function getApi (value) { 
     const apiLink = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
     const pokemonData = {
             id: apiLink.data.id,
@@ -17,16 +17,16 @@ async function getApi (value) { //llamo a la api y recolecto toda la informacion
             img: apiLink.data.sprites.other.dream_world.front_default 
         }
     
-    return pokemonData // retorno la info recolectada de la api
+    return pokemonData 
 }
 
-async function BringItAllP (name) {
+async function bringItAll (name) {
     
     if(name){
         try {
-            const dataBaseResult = await Pokemon.findOne({  // lo busco primero dentro de la base de datos.
-                where: {name: name}, //que coincida el nombre
-                attributes: ["id", "name", "attack", "img"], //le traigo los parametros que quiero de mi BD
+            const dataBaseResult = await Pokemon.findOne({  
+                where: {name: name}, 
+                attributes: ["id", "name", "attack", "img"], 
                 include: { 
                     model: Type, 
                     attributes: ["name"],
@@ -36,7 +36,7 @@ async function BringItAllP (name) {
                 }
             })
             
-            if(!dataBaseResult){  // SI NO EXISTE en DB, buscamelo en la api.
+            if(!dataBaseResult){ 
                 const checkApi = await getApi(name)
                 return checkApi
             } 
@@ -46,13 +46,13 @@ async function BringItAllP (name) {
         } catch (error) {
             console.log(error) 
         }
-    } else { // sino tiene query, que me traiga TODO.
-        const apiLink = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); //api con limite de 40
+    } else { 
+        const apiLink = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); 
         const searchingPokemon = await apiLink.data.results.map(p =>  {
-            return axios.get(p.url) //la api viene con otra promesa, busco el link de cada pokemon
+            return axios.get(p.url) 
         })
-        const catchThemAll = await Promise.all(searchingPokemon) // pido que me traiga todas las promesas (incluye la URL que tiene la info de cada pokemon)
-        const pokeInfo = catchThemAll.map(p => { // mapeo todo para traer la info 
+        const catchThemAll = await Promise.all(searchingPokemon) 
+        const pokeInfo = catchThemAll.map(p => {  
             return{ 
                 name : p.data.name,
                 img : p.data.sprites.other.dream_world.front_default,
@@ -63,8 +63,8 @@ async function BringItAllP (name) {
         })
 
         
-        const pokedexInfo = await Pokemon.findAll({  // busco todo de mi base de datos. 
-            attributes: ["name", "img", "attack", "hp", "id", "isInDataBase"], // traigo la info que quiero
+        const pokedexInfo = await Pokemon.findAll({   
+            attributes: ["name", "img", "attack", "hp", "id", "isInDataBase"], 
             include: {
                 model: Type, 
                 attributes: ["name"],
@@ -76,12 +76,12 @@ async function BringItAllP (name) {
     //console.log(pokeInfo) ... trae un array de objetos.
     const getThemAll = [...pokedexInfo, ...pokeInfo] // concateno todo! 
 
-    return getThemAll // aca me devuelve todo, base de datos y api.
+    return getThemAll 
     }
 }
 
-async function BringByType (id) {
-    if(id.length>10){  //el UUIDV4 TRAE UN CODIGO ALFANUMERICO DE 26 CARACTERES INCLUYENDO "-"
+async function bringById (id) {
+    if(id.length>10){  
         try {
             const searchingInDataBase = await Pokemon.findByPk(id, {include: Type})
             const mylittlePokemon = {
@@ -97,14 +97,14 @@ async function BringByType (id) {
                 weight: searchingInDataBase.weight,
             }
 
-            return mylittlePokemon// retorno toda la info que busque en la const
+            return mylittlePokemon
             
 
         } catch (error) {
             next(error)
         }
-    } else{ //SI EL ID TIENE MENOS DE 10 CARACTERES ME BUSCA LA INFO EN LA API
-        try { // 
+    } else{ 
+        try {  
             const pokemonById = await getApi(id)
             return pokemonById
         } catch (error) {
@@ -114,8 +114,7 @@ async function BringByType (id) {
 
 }
 
-
-async function postingPokemon (name, hp, attack, defense, speed, height, weight, img, isInDataBase, types ) {
+async function creatingPokemon (name, hp, attack, defense, speed, height, weight, img, isInDataBase, types ) {
      
   try{ 
     
@@ -125,7 +124,7 @@ async function postingPokemon (name, hp, attack, defense, speed, height, weight,
         }
     });
     
-    if(existinPokemonDB) return 'Pokemon existente'
+    if(existinPokemonDB) return 'Pokemon alredy exist'
 
     let newPokemon = await Pokemon.create ({
         name, 
@@ -139,8 +138,8 @@ async function postingPokemon (name, hp, attack, defense, speed, height, weight,
         isInDataBase,
     })
 
-    const unique = [...new Set(types)];
-    unique.map(async t => {
+    const setingTypes = [...new Set(types)];
+    setingTypes.map(async t => {
         const tDB = await Type.findAll({
             where: { name: t },
             
@@ -155,7 +154,7 @@ async function postingPokemon (name, hp, attack, defense, speed, height, weight,
 }
 
 
-async function Typing () {
+async function bringItByTypes () {
 let pokemonTypeDB = await Type.findAll() // traigo toda la info de mi base de datos
     
 if(pokemonTypeDB.length === 0){ // si es 0 que busque dentro de la api
@@ -166,4 +165,4 @@ if(pokemonTypeDB.length === 0){ // si es 0 que busque dentro de la api
     return pokemonTypeDB
 }
 
-module.exports = {BringItAllP, BringByType, postingPokemon, Typing}
+module.exports = {bringItAll, bringById, creatingPokemon, bringItByTypes}
