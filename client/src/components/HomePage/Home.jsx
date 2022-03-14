@@ -9,7 +9,7 @@ import style from './Home.module.css'
 
 
 function Home() {
-  const [order, setOrder] = useState("")
+  const [/*order*/, setOrder] = useState("")
   const [pagination, setPagination] = useState(1)
   const [pages] = useState(12)
   const dispatch = useDispatch()

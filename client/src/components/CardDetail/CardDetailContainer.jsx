@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { pokemonDetail } from '../../actions'
 
 import CardDetail from './CardDetail'
@@ -16,13 +16,7 @@ function CardDetailContainer() {
         dispatch(pokemonDetail(id))
     }, [dispatch, id])
 
-    // const history = useHistory()
 
-    // function handleGoBack(e) {
-    //     e.preventDefault();
-    //     dispatch(pokemonDetail());
-    //     history.push('/pokemons')
-    // }
 
   return (
     <div >
