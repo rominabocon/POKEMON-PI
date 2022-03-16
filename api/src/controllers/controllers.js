@@ -44,7 +44,7 @@ async function bringItAll (name) {
             return dataBaseResult
 
         } catch (error) {
-            console.log(error) 
+           return 'Pokemon does not exist' 
         }
     } else { 
         const apiLink = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); 

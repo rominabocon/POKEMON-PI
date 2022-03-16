@@ -38,18 +38,15 @@ function CreatePokemon() {
         if (input.height < 1) {
             errors.height = 'Too short'
         }
+
     
         return errors
     };
-
-
 
     useEffect(() => {
         dispatch(getAllTypes())
     },[dispatch])
     
-
-
     const [ input, setInput ] = useState({
         name: '',
         hp: '',
@@ -67,9 +64,8 @@ function CreatePokemon() {
         setErrors(validation(input))
     }, [input])
 
-    
     const handleChange = (e) => {
-       
+    
         setInput({
             ...input,
             [e.target.name]: e.target.value,
@@ -83,7 +79,7 @@ function CreatePokemon() {
     function handleSubmit(e){
         e.preventDefault()
         if(pokeState.find((p) => p.name === input.name)) {
-            alert('Ya existe!');
+            alert('This Pokemon alredy exist!');
             setErrors({
                 ...input,
                 [e.target.name]: "Pokémon duplicated",
@@ -105,19 +101,22 @@ function CreatePokemon() {
         alert('You Did It!')
 }
     }
+
     const handleSelect = (e) => {
-        setInput({
+       
+
+            setInput({
             ...input,
             types: [...input.types, e.target.value]
-        });
-    };
+        })
+    }
 
     const errorscontrol = useMemo(() => {
-        if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height) return true;
+        if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height ) return true;
         return false;
-      },[errors])
+    },[errors])
 
-     
+ 
 
     return (
         <div className={style.backG}>
@@ -237,9 +236,11 @@ function CreatePokemon() {
                 <div key={t.name} className={style.check}>
                 <input  onChange={(e) => handleSelect(e)} type="checkbox" value={t.name} />
                 <label>{t.name}</label>
+                
                 </div>
             )})
         }
+        
         </div>
         <div>
         <button type="submit" disabled={errorscontrol}>Create your own pokemon</button>

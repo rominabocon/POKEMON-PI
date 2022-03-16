@@ -15,18 +15,22 @@ function SearchPokemon() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(catchPokemonByName(name.toLowerCase()) )
+            dispatch(catchPokemonByName(name.toLowerCase()) )
         setName('')
     }
+
 
 return (
     <div className={style.navDistribution}> 
         <div>
             <Link to='/createPokemon' className={style.searchingpokeB}>Create your Own Pokemon</Link>
         </div>
-        <div>
+        <div className={style.searchWarning}>
             <input className={style.searchInput} type="text" value={name} onChange={(e) => handleChange(e)} placeholder='🔎Search your pokemon'></input>
-            <button className={style.searchingpokeB} disabled={!name} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
+            {!name 
+            ? <p className={style.warning}> put a valid pokemon to search</p> 
+            : <button className={style.searchingpokeB} disabled={!name} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>}
+
         </div>
     </div>
 )

@@ -38,3 +38,14 @@ background-repeat: no-repeat;
 }
 
    
+.searchWarning {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.warning {
+    font-size: x-small;
+    color: red;
+    margin-left: 1rem;
+}
