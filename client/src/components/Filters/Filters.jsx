@@ -11,6 +11,7 @@ function getThemAll (e) {
   e.preventDefault();
   dispatch(catchAllPokemon())
 }
+
 function sortingbyName(e){
   e.preventDefault()
   setPagination(1)
@@ -56,7 +57,6 @@ function sortingbyOrigin(e) {
                 <option value="created">Your Creations</option>
                 <option value="original">The Originals</option>
       </select>
-
 
       <select  onChange={e => filterbyType(e)}>
         <option value='all'>Pokemon Types</option>

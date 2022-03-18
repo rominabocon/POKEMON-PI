@@ -106,21 +106,21 @@ function CreatePokemon() {
 }
     }
 
-function handleSelect (a)  {
-    if(!input.types.includes(a.target.value) /*&& input.types.length < 2*/){
-        setInput({
-        ...input,
-        types: [...input.types, a.target.value]
-        })
-        
-    }else {
-        setInput({
+    function handleSelect (a)  {
+        if(!input.types.includes(a.target.value) /*&& input.types.length < 2*/){
+            setInput({
             ...input,
-            types: input.types.filter(e => e !== a.target.value)
-        })
+            types: [...input.types, a.target.value]
+            })
+            
+        }else {
+            setInput({
+                ...input,
+                types: input.types.filter(e => e !== a.target.value)
+            })
+        }
+            
     }
-        
-}
 
     const errorscontrol = useMemo(() => {
         if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height || errors.types) return true;

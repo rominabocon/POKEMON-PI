@@ -101,14 +101,14 @@ async function bringById (id) {
             
 
         } catch (error) {
-           console.log(error)
+            console.log(error)
         }
     } else{ 
         try {  
             const pokemonById = await bringPokeApi(id)
             return pokemonById
         } catch (error) {
-           console.log(error)
+            console.log(error)
         }
     }
 
@@ -154,12 +154,12 @@ async function creatingPokemon (name, hp, attack, defense, speed, height, weight
 }
 
 async function bringItByTypes () {
-let pokemonTypeDB = await Type.findAll() // traigo toda la info de mi base de datos
+let pokemonTypeDB = await Type.findAll() 
     
-if(pokemonTypeDB.length === 0){ // si es 0 que busque dentro de la api
+if(pokemonTypeDB.length === 0){ 
     let pokemonTypeApi = await axios.get("https://pokeapi.co/api/v2/type")
     pokemonTypeApi = pokemonTypeApi.data.results.map( t => {return {name : t.name}})
-    pokemonTypeDB = await Type.bulkCreate(pokemonTypeApi) // posteo con bulkcreate en mi tabla
+    pokemonTypeDB = await Type.bulkCreate(pokemonTypeApi) 
 }
     return pokemonTypeDB
 }
