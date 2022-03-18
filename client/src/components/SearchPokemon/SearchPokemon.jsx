@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { catchPokemonByName } from '../../actions'
 import style from './SearchingPokemon.module.css'
 
-function SearchPokemon() {
+function SearchPokemon({setPagination}) {
     const dispatch = useDispatch()
     const [name, setName] = useState('')
 
@@ -15,7 +15,8 @@ function SearchPokemon() {
 
     function handleSubmit(e) {
         e.preventDefault()
-            dispatch(catchPokemonByName(name.toLowerCase()) )
+        dispatch(catchPokemonByName(name.toLowerCase()) )
+        setPagination(1)
         setName('')
     }
 
@@ -29,7 +30,7 @@ return (
             <input className={style.searchInput} type="text" value={name} onChange={(e) => handleChange(e)} placeholder='🔎Search your pokemon'></input>
             {!name 
             ? <p className={style.warning}> put a valid pokemon to search</p> 
-            : <button className={style.searchingpokeB} disabled={!name} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>}
+            : <button className={style.searchingpokeB} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>}
 
         </div>
     </div>

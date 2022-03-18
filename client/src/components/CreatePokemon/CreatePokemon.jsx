@@ -1,15 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { createPokemon, getAllTypes } from '../../actions';
 import style from './CreatePokemon.module.css'
 
 
 function CreatePokemon() {
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({})    
     const dispatch = useDispatch();
     const getPokeTypes = useSelector((state) => state.types)
     const pokeState = useSelector((state) => state.pokemons)
+    const history = useHistory()
 
     const validation = (input) => {
         
@@ -38,8 +39,14 @@ function CreatePokemon() {
         if (input.height < 1) {
             errors.height = 'Too short'
         }
+        if (input.types.length > 2 ) {
+            
+            errors.types = 'You can not select more than two types'
+        }
+        if (input.types.length  < 1) {
+            errors.types = 'You have to select at least one type'
+        }
 
-    
         return errors
     };
 
@@ -80,10 +87,6 @@ function CreatePokemon() {
         e.preventDefault()
         if(pokeState.find((p) => p.name === input.name)) {
             alert('This Pokemon alredy exist!');
-            setErrors({
-                ...input,
-                [e.target.name]: "Pokémon duplicated",
-            });
         } else{
         dispatch(createPokemon(input)) 
         setInput({
@@ -99,24 +102,30 @@ function CreatePokemon() {
             img:''
         })
         alert('You Did It!')
+        history.push('/pokemons')
 }
     }
 
-    const handleSelect = (e) => {
-       
-
-            setInput({
+function handleSelect (a)  {
+    if(!input.types.includes(a.target.value) /*&& input.types.length < 2*/){
+        setInput({
+        ...input,
+        types: [...input.types, a.target.value]
+        })
+        
+    }else {
+        setInput({
             ...input,
-            types: [...input.types, e.target.value]
+            types: input.types.filter(e => e !== a.target.value)
         })
     }
+        
+}
 
     const errorscontrol = useMemo(() => {
-        if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height ) return true;
+        if(errors.name || errors.hp || errors.weight || errors.attack || errors.defense || errors.height || errors.types) return true;
         return false;
     },[errors])
-
- 
 
     return (
         <div className={style.backG}>
@@ -219,7 +228,6 @@ function CreatePokemon() {
             <label>Weight</label>
             
                 <input
-                    
                     type='number'
                     value={input.weight}
                     name="weight"
@@ -240,15 +248,16 @@ function CreatePokemon() {
                 </div>
             )})
         }
-        
+      
         </div>
+        {errors.types && (<p style={{"color": 'red'}}>{errors.types}</p>)}
         <div>
-        <button type="submit" disabled={errorscontrol}>Create your own pokemon</button>
-          </div>
+            <button type="submit" disabled={errorscontrol}>Create your own pokemon</button>
+        </div>
         </form>
         </div>
     </div>
-  )
+    )
 }
 
 export default CreatePokemon

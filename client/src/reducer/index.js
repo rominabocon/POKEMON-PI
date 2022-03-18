@@ -1,4 +1,4 @@
-import { CATCH_ALL_POKEMON, CATCH_POKEMON_BY_ID, CATCH_POKEMON_BY_NAME, CATCH_POKEMON_BY_ORIGIN, CATCH_POKEMON_BY_TYPE, GET_ALL_TYPES, SORT_POKEMON, SORT_POKEMON_BY_ATTACK } from "../actions";
+import { CATCH_ALL_POKEMON, CATCH_POKEMON_BY_ID, CATCH_POKEMON_BY_NAME, CATCH_POKEMON_BY_ORIGIN, CATCH_POKEMON_BY_TYPE, DELETE_DETAIL, GET_ALL_TYPES, SORT_POKEMON, SORT_POKEMON_BY_ATTACK } from "../actions";
 
 const initialState = {
     pokemons: [],
@@ -98,6 +98,11 @@ function rootReducer(state=initialState, action) {
             return{
                 ...state,
                 pokemons: sortingAttack
+            };
+        case DELETE_DETAIL:
+            return{
+                ...state,
+                detail: []
             };
         default:
                 return state

@@ -37,7 +37,7 @@
   }
   
   .flipCardBack {
-    background-color: #0A285F;
+    background-color: #0075BE ;
     color: white;
     transform: rotateY(180deg);
     text-align: center;

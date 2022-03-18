@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { pokemonDetail } from '../../actions'
+import { pokemonDetail, removeDetail } from '../../actions'
 
 import CardDetail from './CardDetail'
 import style from './CardDetail.module.css'
@@ -12,19 +12,22 @@ function CardDetailContainer() {
     const dispatch = useDispatch()
     const getDetail = useSelector((state) => state.detail )
 
+
     useEffect(() => {
         dispatch(pokemonDetail(id))
     }, [dispatch, id])
 
+    function handleDeleteDetail () {
+        dispatch(removeDetail())
+    }
 
-
-  return (
+return (
     <div >
-        <Link className={style.buttonBack} to='/pokemons'>Go Back</Link>
+        <Link className={style.buttonBack} onClick={e=> handleDeleteDetail(e)} to='/pokemons'>Go Back</Link>
         <div className={style.containerDetail}>
     <div className={style.cardDetailContainer}>
         { getDetail <= 0 
-        ? <img className={style.loading} src={'https://c.tenor.com/dzQAPQ7q0-4AAAAi/pikachu-shy.gif'} alt='wait for your pokemons'/>
+        ? <img className={style.loading} src={'https://weichiachang.github.io/pokemon-master/img/loading.45600eb9.gif'} alt='wait for your pokemons'/>
         : <CardDetail
                 key={getDetail.id}
                 id={getDetail.id}
@@ -45,7 +48,7 @@ function CardDetailContainer() {
 
         </div>
     </div>
-  )
+)
 }
 
 export default CardDetailContainer

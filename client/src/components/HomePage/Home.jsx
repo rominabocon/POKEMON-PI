@@ -24,7 +24,9 @@ function Home() {
 
   return (
       <div className={style.homePage}> 
-      <SearchPokemon/>
+      <SearchPokemon
+      setPagination={setPagination}
+      />
       <Filters
         catchAllPokemon={catchAllPokemon}
         setPagination={setPagination}
@@ -33,7 +35,7 @@ function Home() {
       />
     {
     catchPokemon <= 0 
-    ?  <img className={style.loading} src={'https://c.tenor.com/dzQAPQ7q0-4AAAAi/pikachu-shy.gif'} alt='wait for your pokemons'/>
+    ? <img className={style.loading} src={'https://c.tenor.com/dzQAPQ7q0-4AAAAi/pikachu-shy.gif'} alt='wait for your pokemons'/>
     :  <CardContainer
           setPagination={setPagination}
           pages={pages}

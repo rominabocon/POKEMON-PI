@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { catchAllPokemon, getAllTypes } from '../../actions'
 import './LandingPage.css'
 
 function LandingPage() {
+
+  const dispatch = useDispatch()
+
+  
+  useEffect(() => {
+    dispatch(getAllTypes())
+    dispatch(catchAllPokemon())
+  }, [dispatch])
+
   return (
     <div className='container'>
     <div  className='backgroundImage'>

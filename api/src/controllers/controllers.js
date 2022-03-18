@@ -2,19 +2,19 @@ const axios = require("axios")
 const {Pokemon, Type} = require("../db.js")
 
 
-async function getApi (value) { 
-    const apiLink = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
+async function bringPokeApi (value) { 
+    const thePokeApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
     const pokemonData = {
-            id: apiLink.data.id,
-            name: apiLink.data.name,
-            hp: apiLink.data.stats[0].base_stat,
-            attack: apiLink.data.stats[1].base_stat,
-            defense: apiLink.data.stats[2].base_stat,
-            speed: apiLink.data.stats[5].base_stat,
-            weight: apiLink.data.weight,
-            height: apiLink.data.height,
-            types: apiLink.data.types.map(p => p.type.name ),
-            img: apiLink.data.sprites.other.dream_world.front_default 
+            id: thePokeApi.data.id,
+            name: thePokeApi.data.name,
+            hp: thePokeApi.data.stats[0].base_stat,
+            attack: thePokeApi.data.stats[1].base_stat,
+            defense: thePokeApi.data.stats[2].base_stat,
+            speed: thePokeApi.data.stats[5].base_stat,
+            weight: thePokeApi.data.weight,
+            height: thePokeApi.data.height,
+            types: thePokeApi.data.types.map(p => p.type.name ),
+            img: thePokeApi.data.sprites.other.dream_world.front_default 
         }
     
     return pokemonData 
@@ -24,7 +24,7 @@ async function bringItAll (name) {
     
     if(name){
         try {
-            const dataBaseResult = await Pokemon.findOne({  
+            const pokeDataBase = await Pokemon.findOne({  
                 where: {name: name}, 
                 attributes: ["id", "name", "attack", "img"], 
                 include: { 
@@ -36,19 +36,19 @@ async function bringItAll (name) {
                 }
             })
             
-            if(!dataBaseResult){ 
-                const checkApi = await getApi(name)
-                return checkApi
+            if(!pokeDataBase){ 
+                const lookPokemonInApi = await bringPokeApi(name)
+                return lookPokemonInApi
             } 
 
-            return dataBaseResult
+            return pokeDataBase
 
         } catch (error) {
-           return 'Pokemon does not exist' 
+            return '404'  
         }
     } else { 
-        const apiLink = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); 
-        const searchingPokemon = await apiLink.data.results.map(p =>  {
+        const pokeApiLimit = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); 
+        const searchingPokemon = await pokeApiLimit.data.results.map(p =>  {
             return axios.get(p.url) 
         })
         const catchThemAll = await Promise.all(searchingPokemon) 
@@ -101,22 +101,22 @@ async function bringById (id) {
             
 
         } catch (error) {
-            next(error)
+           console.log(error)
         }
     } else{ 
         try {  
-            const pokemonById = await getApi(id)
+            const pokemonById = await bringPokeApi(id)
             return pokemonById
         } catch (error) {
-            next(error)
+           console.log(error)
         }
     }
 
 }
 
 async function creatingPokemon (name, hp, attack, defense, speed, height, weight, img, isInDataBase, types ) {
-     
-  try{ 
+    
+    try{ 
     
     let existinPokemonDB = await Pokemon.findOne({
         where:{
@@ -126,7 +126,7 @@ async function creatingPokemon (name, hp, attack, defense, speed, height, weight
     
     if(existinPokemonDB) return 'Pokemon alredy exist'
 
-    let newPokemon = await Pokemon.create ({
+    let pokemonCreation = await Pokemon.create ({
         name, 
         hp, 
         attack,
@@ -144,7 +144,7 @@ async function creatingPokemon (name, hp, attack, defense, speed, height, weight
             where: { name: t },
             
         },)
-        newPokemon.addType(tDB);
+        pokemonCreation.addType(tDB);
     })
    
     return 'You did it! You create a whole new Pokemon!'
@@ -152,7 +152,6 @@ async function creatingPokemon (name, hp, attack, defense, speed, height, weight
         console.log(error)
     }
 }
-
 
 async function bringItByTypes () {
 let pokemonTypeDB = await Type.findAll() // traigo toda la info de mi base de datos
