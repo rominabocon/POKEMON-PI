@@ -12,10 +12,12 @@ function CreatePokemon() {
     const pokeState = useSelector((state) => state.pokemons)
     const history = useHistory()
 
+
+
     const validation = (input) => {
         
         let errors = {};
-        
+
         if (!input.name) {
             errors.name = "This field is mandatory";
         }
