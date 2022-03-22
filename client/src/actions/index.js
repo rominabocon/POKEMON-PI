@@ -11,14 +11,14 @@ export const SORT_POKEMON = 'sortPokemons'; //ok
 export const DELETE_DETAIL = 'deleteDetail'
 
 export const catchAllPokemon = () => async dispatch => {
-    const pokemons = await axios.get('http://localhost:3001/pokemons')
+    const pokemons = await axios.get('/pokemons')
     return dispatch({
         type: CATCH_ALL_POKEMON,
         payload: pokemons.data
     })
 }
 export const getAllTypes = () => async dispatch =>{
-    const poketypes = await axios.get('http://localhost:3001/types')
+    const poketypes = await axios.get('/types')
     return dispatch({
         type: GET_ALL_TYPES,
         payload: poketypes.data
@@ -27,7 +27,7 @@ export const getAllTypes = () => async dispatch =>{
 export const catchPokemonByName = (name) => {
     return async function(dispatch){
         try {
-            let pokeName = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+            let pokeName = await axios.get(`/pokemons?name=${name}`)
             return dispatch({
             type: CATCH_POKEMON_BY_NAME,
             payload: pokeName.data
@@ -61,7 +61,7 @@ export const catchPokemonByOrigin = (payload) => {
 export const pokemonDetail = (id)=> {
     return async function(dispatch){
         try {
-            let pokedetail = await axios.get(`http://localhost:3001/pokemons/${id}`)
+            let pokedetail = await axios.get(`/pokemons/${id}`)
             return dispatch({
             type: CATCH_POKEMON_BY_ID,
             payload: pokedetail.data
@@ -79,7 +79,7 @@ export const sortPokemonbyAttack = (payload) => {
 }
 export function createPokemon(payload){
     return async function(dispatch){
-        const pokeCreate = await axios.post("http://localhost:3001/pokemons", payload)
+        const pokeCreate = await axios.post("/pokemons", payload)
         return pokeCreate
     }
 }
