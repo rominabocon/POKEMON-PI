@@ -41,6 +41,7 @@ function Home() {
           pages={pages}
           catchPokemon={catchPokemon}
           pagination={pagination}
+          remove={true}
   />
   }
 

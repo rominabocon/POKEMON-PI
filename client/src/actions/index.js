@@ -17,6 +17,11 @@ export const catchAllPokemon = () => async dispatch => {
         payload: pokemons.data
     })
 }
+
+export const deletePokemon = payload => async dispatch => {
+    return await axios.delete('/pokemons', {data: payload});
+};
+
 export const getAllTypes = () => async dispatch =>{
     const poketypes = await axios.get('/types')
     return dispatch({

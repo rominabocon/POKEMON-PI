@@ -26,5 +26,18 @@ router.post('/', async(req, res)=> {
    return res.status(200).send(postingPokemon) 
 })
 
+router.delete('/', (req, res)=> {
+    const {id} = req.body
+    Pokemon.destroy({
+        where: {id}
+    })
+    .then((post) => {
+
+        res.status(200).json({code: 200, message: 'Post deleted', deletedPost: post})
+    })
+    .catch((error) => {
+        res.status(500).json({code: 500, message:'Error', Error: error})
+    })
+})
 
 module.exports = router
