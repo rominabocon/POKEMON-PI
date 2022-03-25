@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './CardDetail.module.css'
 
-function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, types}) {
+function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, types,  remove, removeFunction}) {
   
 
 
@@ -24,7 +24,9 @@ function CardDetail({id, name, hp, attack, defense, speed, weight, height, img, 
             <p>Types: {types?.map(t => t).join(", ")}</p>
           </div>
         </div>
-        
+        {
+        remove && <button name='id' className={style.deleteButton} value={id} onClick={e => removeFunction(e)} >X</button>
+      } 
 
     </div>
   )
