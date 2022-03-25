@@ -66,12 +66,3 @@
     width: 100;
 }
 
-.deleteButton {
-  border: none; 
-  color: white; 
-  padding: 14px 28px; 
-}
-
-.deleteButton:hover{
-  background: #e68a00;
-}

@@ -48,6 +48,16 @@
     padding: 2px 16px;
   }
 
+  .deleteButton {
+    border: none; 
+    color: white; 
+    padding: 14px 28px; 
+  }
+  
+  .deleteButton:hover{
+    background: #e68a00;
+  }
+
   @media only screen and (max-width: 600px) {
     .card {
       width: 100%;
