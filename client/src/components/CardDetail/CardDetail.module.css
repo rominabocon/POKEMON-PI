@@ -50,8 +50,12 @@
 
   .deleteButton {
     border: none; 
-    color: white; 
+    background-color: #008CBA; 
+    color: white;
     padding: 14px 28px; 
+    position: absolute;
+    top: 7px;
+    right: 508px;
   }
   
   .deleteButton:hover{
